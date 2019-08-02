@@ -33,13 +33,13 @@
     function moveEverything()
     {
       ballX+=ballSpeedX;
-      if (ballX > 795 || ballX < 5)
+      if (ballX > canvas.width || ballX < 0)
       {
         ballSpeedX*=-1;
       }
 
       ballY+=ballSpeedY;
-      if (ballY > 595 || ballY < 5)
+      if (ballY > canvas.height || ballY < 0)
       {
         ballSpeedY*=-1;
       }
@@ -47,20 +47,23 @@
 
     function drawEverything()
     {
-      canvasContext.fillStyle = 'black';
-      canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+      // Canvas Background
+      colorRect(0, 0, canvas.width, canvas.height, 'black');
 
       //Left Paddle
-      canvasContext.fillStyle = 'white';
-      canvasContext.fillRect(50, 250, 10, 100);
+      colorRect(50, 250, 10, 100, 'white')
 
       // Right Paddle
-      canvasContext.fillStyle = 'white';
-      canvasContext.fillRect(740, 250, 10, 100);
+      colorRect(740, 250, 10, 100, 'white')
 
       // Ball
-      canvasContext.fillStyle = 'red';
-      canvasContext.fillRect(ballX, ballY, 10, 10);
+      colorRect(ballX, ballY, 10, 10, 'red')      
+    }
+
+    function colorRect(leftX, topY, width, height, drawColor)
+    {
+      canvasContext.fillStyle = drawColor;
+      canvasContext.fillRect(leftX, topY, width, height);
     }
 
   </script>
