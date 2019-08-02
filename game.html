@@ -13,6 +13,10 @@
     var canvas;
     var canvasContext;
     var ballX = 50;
+    var ballSpeedX = 5;
+    var ballY = 50;
+    var ballSpeedY = 5;
+
     window.onload = function()
     {
       canvas = document.getElementById('gameCanvas');
@@ -20,13 +24,25 @@
 
       var FramesPerSecond = 30;
 
-      setInterval(function() {moveEverything(); drawEverything();},
+      setInterval(function() {moveEverything();
+                              drawEverything();
+                              },
                   1000/FramesPerSecond);
     }
 
     function moveEverything()
     {
-      ballX+=5;
+      ballX+=ballSpeedX;
+      if (ballX > 795 || ballX < 5)
+      {
+        ballSpeedX*=-1;
+      }
+
+      ballY+=ballSpeedY;
+      if (ballY > 595 || ballY < 5)
+      {
+        ballSpeedY*=-1;
+      }
     }
 
     function drawEverything()
@@ -34,14 +50,17 @@
       canvasContext.fillStyle = 'black';
       canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 
+      //Left Paddle
       canvasContext.fillStyle = 'white';
       canvasContext.fillRect(50, 250, 10, 100);
 
+      // Right Paddle
       canvasContext.fillStyle = 'white';
       canvasContext.fillRect(740, 250, 10, 100);
 
+      // Ball
       canvasContext.fillStyle = 'red';
-      canvasContext.fillRect(ballX, 100, 10, 10);
+      canvasContext.fillRect(ballX, ballY, 10, 10);
     }
 
   </script>
