@@ -15,9 +15,10 @@
     var ballX = 50;
     var ballSpeedX = 5;
     var ballY = 50;
-    var ballSpeedY = 5;
+    var ballSpeedY = 2.5;
 
     var paddle1Y = 250;
+    var paddle2Y = 250;
     const PADDLE_HEIGHT = 100;
     const PADDLE_WIDTH = 10;
 
@@ -53,6 +54,8 @@
 
     function ballReset()
     {
+      //ballSpeedY*=-1;
+      ballSpeedX*=-1;
       ballX = canvas.width/2;
       ballY = canvas.height/2;
     }
@@ -61,12 +64,26 @@
     {
       ballX+=ballSpeedX;
       ballY+=ballSpeedY;
-      if (ballX < 0 || ballX > canvas.width)
+      if (ballX < 0)
+      {
+        if (ballY > paddle1Y && ballY < paddle1Y + PADDLE_HEIGHT)
+        {
+          ballSpeedX*=-1;
+        }else        {
+          ballReset();
+        }
+
+      }
+      if (ballX > canvas.width)
       {
         ballReset();
       }
 
-      if (ballY > canvas.height || ballY < 0)
+      if (ballY < 0)
+      {
+        ballSpeedY*=-1;
+      }
+      if (ballY > canvas.height)
       {
         ballSpeedY*=-1;
       }
@@ -77,14 +94,16 @@
       // Canvas Background
       colorRect(0, 0, canvas.width, canvas.height, 'black');
 
+      // Ball
+      colorCircle(ballX, ballY, 10, 'red');
+
       //Left Paddle
-      colorRect(50, paddle1Y, PADDLE_WIDTH, PADDLE_HEIGHT, 'white')
+      colorRect(0, paddle1Y, PADDLE_WIDTH, PADDLE_HEIGHT, 'white');
 
       // Right Paddle
-      colorRect(740, 250, PADDLE_WIDTH, PADDLE_HEIGHT, 'white')
+      colorRect(canvas.width-PADDLE_WIDTH, paddle2Y, PADDLE_WIDTH, PADDLE_HEIGHT, 'white');
 
-      // Ball
-      colorCircle(ballX, ballY, 10, 'red')
+
     }
 
     function colorRect(leftX, topY, width, height, drawColor)
